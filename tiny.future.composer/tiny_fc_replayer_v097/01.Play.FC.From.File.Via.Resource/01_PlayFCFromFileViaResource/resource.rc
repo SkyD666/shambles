@@ -1,0 +1,3 @@
+#include "resource.h"
+
+CHIPTUNE_MUS		RCDATA "samples/classic.fc"
