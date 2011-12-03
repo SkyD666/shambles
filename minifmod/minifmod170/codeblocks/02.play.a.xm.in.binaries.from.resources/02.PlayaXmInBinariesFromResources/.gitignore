@@ -1,0 +1,5 @@
+[dD]ebug
+[rR]elease
+*.layout
+*.depend
+*.*~             # ignore vim backup file
