@@ -1,5 +1,6 @@
 //===============================================================================================
 // SIMPLE.EXE
+// Copyright (c), maracuja/ZUUL 2011
 // Copyright (c), Firelight Technologies, 2000-2004.
 //
 // This is a simple but descriptive way to get FMOD going, by loading a song and a few wav files
@@ -19,7 +20,7 @@
 #define USEFMOD TRUE
 
 #ifdef USEFMOD
-	#include "lib/minifmod.h"
+	#include "minifmod.h"
 #endif
 
 
@@ -60,7 +61,7 @@ int filetell(unsigned int handle)
 
 #else
 
-typedef struct 
+typedef struct
 {
 	int length;
 	int pos;
@@ -97,7 +98,7 @@ unsigned int memopen(char *name)
 
 		rec = FindResource(NULL, name, RT_RCDATA);
 		handle = LoadResource(NULL, rec);
-		
+
 		memfile->data = LockResource(handle);
 		memfile->length = SizeofResource(NULL, rec);
 		memfile->pos = 0;
@@ -127,7 +128,7 @@ int memread(void *buffer, int size, unsigned int handle)
 
 	memcpy(buffer, (char *)memfile->data+memfile->pos, size);
 	memfile->pos += size;
-	
+
 	return size;
 }
 
@@ -135,9 +136,9 @@ void memseek(unsigned int handle, int pos, signed char mode)
 {
 	MEMFILE *memfile = (MEMFILE *)handle;
 
-	if (mode == SEEK_SET) 
+	if (mode == SEEK_SET)
 		memfile->pos = pos;
-	else if (mode == SEEK_CUR) 
+	else if (mode == SEEK_CUR)
 		memfile->pos += pos;
 	else if (mode == SEEK_END)
 		memfile->pos = memfile->length + pos;
@@ -166,7 +167,7 @@ void songcallback(FMUSIC_MODULE *mod, unsigned char param)
 	[DESCRIPTION]
 
 	[PARAMETERS]
- 
+
 	[RETURN_VALUE]
 
 	[REMARKS]
