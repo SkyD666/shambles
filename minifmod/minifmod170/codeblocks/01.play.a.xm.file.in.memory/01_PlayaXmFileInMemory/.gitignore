@@ -1,3 +1,4 @@
 [dD]ebug
 [rR]elease
 *.layout
+*.depend
