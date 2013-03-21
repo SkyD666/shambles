@@ -1,0 +1,18 @@
+My first test to print a sprite on the gba screen.
+
+*REQUIREMENTS* :
+- devkitpro (www.devkitpro.org) with gba toolchhain of course
+- visual boy advance or n0ca$h gba
+- the dream will be to have a AGB Device !!!!
+
+*NOTE* :
+To SQUIRE GROUP:
+ => I've ripped your intro on the NDS, to have a sprite material for my test.
+    I hope, you're not angry :op
+ => Pacman sprite was in devoto pern project sample for gba. :)
+
+
+*WARNiNG* :
+The code won't compile if in your path contains some space.
+
+
