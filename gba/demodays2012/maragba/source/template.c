@@ -57,6 +57,19 @@ void InitSprites(void) {
 
 #define MAX_CHARS_RANGE 29
 
+void convert2Index(char *s, int m, const char *chars_range, int n) {
+    u16 loop, loop2;
+    
+    for (loop = 0 ; loop < m ; loop++) {
+        for (loop2 = 0 ; loop2 < n ; loop2++) {
+            if (s[loop] == chars_range[loop2]) {
+                s[loop] = (char) loop2;
+                break;
+            }
+        }
+    }
+}
+
 //---------------------------------------------------------------------------------
 // Program entry point
 //---------------------------------------------------------------------------------
@@ -64,7 +77,7 @@ int main(void) {
 //---------------------------------------------------------------------------------
     s16 x = 100;
     s16 y = 60;
-    u16 loop, loop2;
+    u16 loop;
     u16 *OAMData = (u16 *)OBJ_BASE_ADR;
     u16 s, e;
     char msg[] = "HELLO  GITHUB !";
@@ -89,21 +102,14 @@ int main(void) {
 #endif
 
 #if FONTS_SQUIRE
-    for (loop = 0 ; loop < sizeof(msg) / sizeof(msg[0]) ; loop++) {
-        for (loop2 = 0 ; loop2 < sizeof(chars_range) / sizeof(chars_range[0]) ; loop2++) {
-            if (msg[loop] == chars_range[loop2]) {
-                msg[loop] = (char) loop2;
-                break;
-            }
-        }
-    }
+    convert2Index(msg, sizeof(msg)/sizeof(msg[0]), chars_range, MAX_CHARS_RANGE + 1);
 
     (void)x;
     y = 100;
 
     for (loop = 0 ; loop < sizeof(msg)/sizeof(msg[0])-1 ; loop++) {
-        sprite[loop].attribute[0] = ATTR0_COLOR_16 | ATTR0_SQUARE | ATTR0_NORMAL | (y & 0x00ff);
-        sprite[loop].attribute[1] = ATTR1_SIZE_16 | ((loop * 16));
+        sprite[loop].attribute[0] = ((ATTR0_COLOR_16 | ATTR0_SQUARE | ATTR0_NORMAL) & ~255) | (y & 255);
+        sprite[loop].attribute[1] = (ATTR1_SIZE_16 & ~511) | ((loop * 16) & 511);
         sprite[loop].attribute[2] = msg[loop] * 8 / 2;
     }
 #endif
