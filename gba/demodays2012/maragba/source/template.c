@@ -33,15 +33,17 @@ void CopyOAM(void) {
 void FillSpritesPal(void) {
     int loop;
 
-    for (loop = 0 ; loop < 256 ; loop++) {
 #if PACSPRITE
+    for (loop = 0 ; loop < 256 ; loop++) {
         OBJ_COLORS[loop] = pacspritePalette[loop];
+    }
 #endif
 
 #if FONTS_SQUIRE
+    for (loop = 0 ; loop < 256 ; loop++) {
         OBJ_COLORS[loop] = fontspal[loop];
-#endif
     }
+#endif
 }
 
 void InitSprites(void) {
@@ -78,36 +80,32 @@ int main(void) {
 
 #if PACSPRITE
     sprite[0].attribute[0] = ATTR0_COLOR_256 | ATTR0_SQUARE | ATTR0_NORMAL | (y & 0x00ff);
+    sprite[0].attribute[1] = ATTR1_SIZE_16 | (x & 0x00ff);
+    sprite[0].attribute[2] = 0;
 #endif
 
 #if FONTS_SQUIRE
     sprite[0].attribute[0] = ATTR0_COLOR_16 | ATTR0_SQUARE | ATTR0_NORMAL | (y & 0x00ff);
-#endif
-
     sprite[0].attribute[1] = ATTR1_SIZE_16 | (x & 0x00ff);
     sprite[0].attribute[2] = 0;
-
+#endif
 
 #if PACSPRITE
     s = 0;
     e = 3 + 1; // for having the pacman
+    for (loop = (s*(16*16)/4) ; loop < (e*(16 * 16)/4)  ; loop++) {
+        OAMData[loop] = pacspriteData[loop];
+    }
 #endif
 
 #if FONTS_SQUIRE
     //aAbcdefghijklmn DCB "ABCDEFGHIJKLMNOPQRSTUVWXYZ?!. ",0
     s = 0;
     e = s + 1; // for having the bitmap fonts
-#endif
-
-    for (loop = (s*(16*16)/4) ; loop < (e*(16 * 16)/4)  ; loop++) {
-#if PACSPRITE
-        OAMData[loop] = pacspriteData[loop];
-#endif
-
-#if FONTS_SQUIRE
+    for (loop = (s*(16*16)/4) ; loop < (e*(16 * 16)/4)  ; loop++) { 
         OAMData[loop-(s*(16*16/4))] = fontsspr[loop]; // print a sprite in a bank 0
-#endif
     }
+#endif
 
     while (1) {
         VBlankIntrWait();
