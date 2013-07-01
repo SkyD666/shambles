@@ -10,7 +10,7 @@
 ;*                                               *
 ;*************************************************
 
-	include a:\1\constant.i		; on inclus les constantes
+	include constant.i		; on inclus les constantes
 
 	; On passe en mode superviseur
 	clr.l	-(a7)
@@ -73,10 +73,10 @@ affiche_ecran1:
 	move.l #7999,d0
 	
 toto2:
-	move.w #1,0(a0)+
-	move.w #1,2(a0)+
-	move.w #$0,4(a0)+
-	move.w #$0,6(a0)+
+	move.w #1,(a0)+
+	move.w #1,(a0)+
+	move.w #$0,(a0)+
+	move.w #$0,(a0)+
 	dbf d0,toto2
 
 	
@@ -143,7 +143,7 @@ boucle_quitter2:
 sauve_s	dc.l	0	; Reserve un DWORD initialise a 0
 	even
 ;greets	dc.b 'toto',0
-greets INCBIN a:\1\greets.txt
+greets INCBIN greets.txt
 
 	section bss
 sauve_palette ds.l 8	; Reserve 8 DWORD ou 8 longword :)	
